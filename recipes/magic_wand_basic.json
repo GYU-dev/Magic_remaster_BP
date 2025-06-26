@@ -1,0 +1,33 @@
+{
+    "format_version": "1.20.10",
+    "minecraft:recipe_shaped": {
+      "description": {
+      "identifier": "magic_remaster:magic_wand_basic"
+      },
+  
+      
+      "tags": ["crafting_table"],
+      "pattern": [
+        "  O",
+        " / ",
+        "/  "
+      ],
+      "key":{
+        "/": {
+          "item": "minecraft:stick"
+        },
+        "O": {
+          "item": "magic_remaster:magic_crystal" 
+        }
+      },
+      "unlock": [
+        {
+            "item": "magic_remaster:raw_magic_crystal"
+        }
+      ],
+      "result": {
+        "item": "magic_remaster:magic_wand_basic"
+      }
+    }
+  }
+  

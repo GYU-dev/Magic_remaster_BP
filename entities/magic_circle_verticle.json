@@ -1,0 +1,68 @@
+{
+    "format_version": "1.16.210",
+    "minecraft:entity": {
+      "description": {
+        "identifier": "magic_remaster:magic_circle_verticle",
+        "is_spawnable": false,
+        "is_summonable": true,
+        "is_experimental": false
+      },
+      "components": {
+        "minecraft:breathable": {
+          "breathes_water": true
+        },
+        "minecraft:physics": { 
+          "has_gravity": false,
+          "has_collision": false
+        },
+        "minecraft:custom_hit_test": {
+          "hitboxes": [
+            {
+              "pivot": [0, 100, 0],
+              "width": 0,
+              "height": 0
+            }
+          ]
+        },
+        "minecraft:damage_sensor": {
+          "triggers": {
+            "deals_damage": false
+          }
+        },
+        "minecraft:pushable": {
+          "is_pushable": false,
+          "is_pushable_by_piston": false
+        },
+        "minecraft:collision_box": {
+          "width": 0.0001,
+          "height": 0.0001
+        },
+        "minecraft:nameable":{
+          "allow_name_tag_renaming":false,
+          "always_show":false
+        },
+        "minecraft:type_family": {
+          "family": [ "inanimate" , "magic_circle" , "magic" ]
+        },
+        "minecraft:health": {
+          "value": 100,
+          "max": 100
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/empty.json"
+        },
+        "minecraft:persistent": {
+        },
+        "minecraft:conditional_bandwidth_optimization": {
+        },
+        "minecraft:equip_item": {
+        },
+        "minecraft:sound_volume":{
+          "value": 0
+      }
+      },
+  
+      "events": {
+      }
+    }
+  }

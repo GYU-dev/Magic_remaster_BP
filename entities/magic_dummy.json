@@ -1,0 +1,63 @@
+{
+    "format_version": "1.16.210",
+    "minecraft:entity": {
+      "description": {
+        "identifier": "magic_remaster:magic_dummy",
+        "is_spawnable": false,
+        "is_summonable": true,
+        "is_experimental": false
+      },
+      "components": {
+        "minecraft:type_family": {
+          "family": [ "magic", "inanimate" ]
+        },
+        "minecraft:collision_box": {
+          "width": 0.0001,
+          "height": 0.0001
+        },
+        "minecraft:health": {
+          "value": 100,
+          "max": 100
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/empty.json"
+        },
+        "minecraft:nameable":{
+          "allow_name_tag_renaming":false,
+          "always_show":false
+        },
+        "minecraft:persistent": {
+        },
+        "minecraft:physics": {
+        },
+        "minecraft:custom_hit_test": {
+          "hitboxes": [
+            {
+              "pivot": [0, 100, 0],
+              "width": 0,
+              "height": 0
+            }
+          ]
+        },
+        "minecraft:pushable": {
+          "is_pushable": false,
+          "is_pushable_by_piston": true
+        },
+        "minecraft:conditional_bandwidth_optimization": {
+        },
+        "minecraft:equip_item": {
+        },
+        "minecraft:damage_sensor": {
+          "triggers": {
+            "deals_damage": false
+          }
+        },
+        "minecraft:sound_volume":{
+          "value": 0
+        }
+      },
+  
+      "events": {
+      }
+    }
+  }

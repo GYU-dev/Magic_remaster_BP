@@ -1,0 +1,36 @@
+{
+    "format_version": 2,
+    "header": {
+      "name": "Magic_remaster",
+      "description": "Re:MASTER MAGIC",
+      "version": [1, 0, 0],
+      "uuid": "4a18982f-7d26-467c-a08b-160b9a76653b",
+      "min_engine_version": [1, 21, 90]
+    },
+    "modules": [
+      {
+        "type": "data",
+        "description": "add_on modules",
+        "version": [1, 0, 0],
+        "uuid": "bb74bfe5-23b3-4363-8dee-c5273d2eff10"
+      },
+      {
+        "type": "script",
+        "description": "Script API modules",
+        "language": "javascript",
+        "version": [1, 0, 0],
+        "uuid": "628246cb-c86e-4509-832d-fc3398e25919",
+        "entry": "scripts/main.js"
+      }
+    ],
+    "dependencies": [
+      {
+        "uuid": "1f6ae12e-629d-4e5a-bd92-9e9fca393ce2",
+        "version": [1, 0, 0]
+      },
+      {
+        "module_name": "@minecraft/server",
+        "version": "2.0.0"
+      }
+    ]
+  }

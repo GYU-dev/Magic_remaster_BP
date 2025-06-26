@@ -1,0 +1,9 @@
+particle minecraft:balloon_gas_particle ^ ^-0.5 ^-0.2
+particle minecraft:balloon_gas_particle ^-0.2 ^-0.4 ^-0.2
+particle minecraft:balloon_gas_particle ^0.2 ^-0.4 ^-0.2
+particle minecraft:balloon_gas_particle ^-0.4 ^-0.3 ^-0.2
+particle minecraft:balloon_gas_particle ^0.4 ^-0.3 ^-0.2
+particle minecraft:balloon_gas_particle ^-0.6 ^-0.3 ^-0.2
+particle minecraft:balloon_gas_particle ^0.6 ^-0.3 ^-0.2
+particle minecraft:balloon_gas_particle ^-0.8 ^-0.5 ^-0.2
+particle minecraft:balloon_gas_particle ^0.8 ^-0.5 ^-0.2

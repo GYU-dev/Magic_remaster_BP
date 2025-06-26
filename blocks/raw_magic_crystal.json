@@ -1,0 +1,40 @@
+{
+    "format_version": "1.21.90",
+    "minecraft:block": {
+      "description": {
+        "identifier": "magic_remaster:raw_magic_crystal",
+        "menu_category": {
+            "category": "nature"
+        }
+      },
+      "components": {
+        "tag:stone": {},
+        "tag:minecraft:is_pickaxe_item_destructible": {},
+        "tag:minecraft:stone_tier_destructible": {},
+        "tag:stone_pick_diggable": {},
+        "tag:iron_pick_diggable": {},
+        "tag:diamond_pick_diggable": {},
+        "minecraft:loot": "loot_tables/block/raw_magic_crystal.json",
+        "minecraft:destructible_by_mining": {
+          "seconds_to_destroy": 3
+        },
+        "minecraft:destructible_by_explosion": {
+          "explosion_resistance": 5
+        },
+        "minecraft:flammable": false,
+        "minecraft:map_color": "#e9e9e9",
+        "minecraft:geometry": "minecraft:geometry.full_block",
+        "minecraft:material_instances": {
+          "*": {
+            "texture": "raw_magic_crystal",
+            "render_method": "opaque"
+          }
+        },
+        "minecraft:redstone_conductivity": {
+          "allows_wire_to_step_down": true,
+          "redstone_conductor": true
+        },
+        "magic_remaster:raw_magic_crystal":{}
+      }
+    }
+  }

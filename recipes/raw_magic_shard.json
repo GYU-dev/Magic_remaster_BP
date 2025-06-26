@@ -1,0 +1,33 @@
+{
+    "format_version": "1.20.10",
+    "minecraft:recipe_shaped": {
+      "description": {
+      "identifier": "magic_remaster:raw_magic_crystal"
+      },
+  
+      
+      "tags": ["crafting_table"],
+      "pattern": [
+        "E#E",
+        "#E#",
+        "E#E"
+      ],
+      "key":{
+        "E": {
+          "item": "minecraft:lapis_block"
+        },
+        "#": {
+          "item": "minecraft:amethyst_block" 
+        }
+      },
+      "unlock": [
+        {
+            "item": "minecraft:amethyst_block"
+        }
+      ],
+      "result": {
+        "item": "magic_remaster:raw_magic_crystal"
+      }
+    }
+  }
+  

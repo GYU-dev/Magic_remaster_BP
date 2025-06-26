@@ -1,0 +1,14 @@
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=1}] run scoreboard players set @s mana 10
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=2}] run scoreboard players set @s mana 50
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=3}] run scoreboard players set @s mana 100
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=4}] run scoreboard players set @s mana 500
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=5}] run scoreboard players set @s mana 1000
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=6,mana=..499}] run scoreboard players set @s mana 500
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=6,mana=..3999}] run scoreboard players add @s mana 1000
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=6,mana=4000..}] run scoreboard players set @s mana 5000
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=7,mana=..999}] run scoreboard players set @s mana 1000
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=7,mana=..8999}] run scoreboard players add @s mana 1000
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=7,mana=9000..}] run scoreboard players set @s mana 10000
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=8,mana=..4999}] run scoreboard players set @s mana 5000
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=8,mana=..48999}] run scoreboard players add @s mana 1000
+execute as @a[tag=used_mana_potion_iii,scores={wizard_rank=8,mana=49000..}] run scoreboard players set @s mana 50000

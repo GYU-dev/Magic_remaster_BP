@@ -1,0 +1,56 @@
+{
+    "format_version": "1.21.90",
+    "minecraft:item": {
+      "description": {
+        "identifier": "magic_remaster:magic_wand_basic",
+        "menu_category": {
+            "category": "Equipment"
+        }
+      },
+
+      "components": {
+        "minecraft:icon": {
+			    "textures": {
+	    			"default": "magic_wand_basic"
+	    		}
+        },
+        "minecraft:tags" :{
+            "tags": [
+                "magic_remaster:magic_wand"
+            ]
+        },
+        "minecraft:max_stack_size": {
+          "value": 1
+        },
+        "minecraft:rarity": "uncommon",
+        "minecraft:durability": {
+          "max_durability": 199,
+          "damage_chance": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "minecraft:repairable": {
+          "repair_items": [
+            {
+              "items": ["magic_remaster:magic_crystal"],
+              "repair_amount": 50
+            }
+          ]
+        },
+        "minecraft:enchantable": {
+          "slot": "carrot_stick",
+          "value": 0
+        },
+        "minecraft:damage": 5,
+        "minecraft:hand_equipped": true,
+        "minecraft:interact_button": "magic_wand_basic.interact",
+
+        "minecraft:cooldown": {
+          "category": "magic_remaster:magic_wand",
+          "duration": 10
+        },
+        "magic_remaster:magic_wand_component":{}
+      }
+    }
+  }

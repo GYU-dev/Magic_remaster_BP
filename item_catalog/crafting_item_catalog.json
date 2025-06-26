@@ -1,0 +1,36 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:crafting_items_catalog": {
+    "categories": [
+      {
+        "category_name": "items",
+        "groups": [
+          {
+            "group_identifier": {
+              "icon": "magic_remaster:magic_book_advanced",
+              "name": "magic_remaster:magic_book"
+            },
+            "items": [
+              "magic_remaster:magic_book_basic",
+              "magic_remaster:magic_book_advanced",
+              "magic_remaster:magic_book_dark",
+              "magic_remaster:magic_book_dimension",
+              "magic_remaster:magic_book_fire",
+              "magic_remaster:magic_book_gravity",
+              "magic_remaster:magic_book_heal",
+              "magic_remaster:magic_book_ice",
+              "magic_remaster:magic_book_light",
+              "magic_remaster:magic_book_rock",
+              "magic_remaster:magic_book_sound",
+              "magic_remaster:magic_book_spark",
+              "magic_remaster:magic_book_summon",
+              "magic_remaster:magic_book_water",
+              "magic_remaster:magic_book_wind",
+              "magic_remaster:magic_book_top"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
