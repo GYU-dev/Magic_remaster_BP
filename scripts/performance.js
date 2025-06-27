@@ -59,6 +59,10 @@ mc.system.runInterval(() => {
         sendall("あと1分で世界のドロップアイテムの強制削除を行います.")
         sendall("Dropped items will be removed after 1 minutes.")
     }
+    if (tickofclear == gamerule_itemcleartime*60*20 - 10*20){
+        sendall("あと10秒で世界のドロップアイテムの強制削除を行います.")
+        sendall("Dropped items will be removed after 10 seconds.")
+    }
     if (tickofclear >= gamerule_itemcleartime*60*20) {
         let removeItems = []
         removeItems = removeItems.concat(mc.world.getDimension("overworld").getEntities({type:"minecraft:item"}))
