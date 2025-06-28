@@ -42,7 +42,7 @@ mc.world.afterEvents.worldLoad.subscribe((ev)=>{
 	mc.system.afterEvents.scriptEventReceive.subscribe((ev)=>{
 		if (ev.id == "DEV:RESETSCORE" || ev.id == "DEV:STOPAutoEXPCalc") {
 			mc.system.clearRun(autoEXPCalc)
-			console.log("autoEXPCalc was stopped. Reload this world to start autoHealing again.")
+			console.log("autoEXPCalc was stopped. Reload this world to start autoEXPcalc again.")
 		}
 	})
 })
