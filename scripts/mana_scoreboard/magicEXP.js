@@ -30,7 +30,7 @@ mc.world.afterEvents.worldLoad.subscribe((ev)=>{
 			const EXP = EXPObject.getScore(player) || 0
 			const EXPNext = EXPNextObject.getScore(player)
 
-			if (EXP > EXPNext) {
+			if (EXP >= EXPNext) {
 				rankObject.setScore(player,rank + 1)
 				EXPObject.setScore(player,EXP - EXPNext)
 				// ランクアップ
