@@ -14,7 +14,7 @@ mc.system.afterEvents.scriptEventReceive.subscribe((ev)=>{
 		/*
 		 スコア計算
 		 id: calc:score
-		 message: {"emurate":$emurate,"score":$score,"operator":$operator,"operand":[$first,$secound?]}
+		 message: {"emurate":$emurate,"score":$score,"operator":$operator,"operand":[$first,$secound?],"operandEmurate?":[$first,$secound?]}
 		 $emurate: フェイクプレイヤー名
 		 $score: スコアボードID
 		 $operator: 演算子
@@ -27,7 +27,7 @@ mc.system.afterEvents.scriptEventReceive.subscribe((ev)=>{
 		 $first: 第一オペランド 数値あるいはスコアボードID
 		 $secound: 第二オペランド 数値あるいはスコアボードID
 		  +,*(系列)では$secoundを省略可能(省略時$scoreが入る)
-		  -,/(系列)では$secound省略時、$firstが$secoundにあるものとして$firstに$scoreが入る
+		  -,/,^(系列)では$secound省略時、$firstが$secoundにあるものとして$firstに$scoreが入る
 		  =(系列)は$secoundを省略するかどうかで処理が変わる
 		   省略時: $scoreに$firstを代入
 		   非省略時: $firstと$secoundが等価なら1,そうでなければ0を$scoreに代入
@@ -39,6 +39,7 @@ mc.system.afterEvents.scriptEventReceive.subscribe((ev)=>{
 			const operator = messageObject.operator
 			const operand = messageObject.operand
 			const existSecound = operand.length -1
+			const operandEmurate = messageObject.operandEmurate ?? [undefined,undefined]
 
 			const scoreboard = mc.world.scoreboard
 
@@ -46,7 +47,48 @@ mc.system.afterEvents.scriptEventReceive.subscribe((ev)=>{
 				case "+":
 				case "+=":
 				case "add":
-					
+					scoreboard.getObjective(score).setScore(emurate,parseScore(operand[0],operandEmurate[0] ?? emurate) + (parseScore(operand[1],operandEmurate[1] ?? emurate) ?? parseScore(score,operandEmurate[1] ?? emurate)))
+					break;
+				case "-":
+				case "-=":
+				case "remove":
+					if(existSecound){
+						scoreboard.getObjective(score).setScore(emurate,parseScore(operand[0],operandEmurate[0] ?? emurate) - parseScore(operand[1],operandEmurate[1] ?? emurate))
+					}else{
+						scoreboard.getObjective(score).setScore(emurate,parseScore(score,emurate) - parseScore(operand[0],operandEmurate[0] ?? emurate))
+					}
+					break;
+				case "*":
+				case "*=":
+				case "mul":
+					scoreboard.getObjective(score).setScore(emurate,parseScore(operand[0],operandEmurate[0] ?? emurate) * (parseScore(operand[1],operandEmurate[1] ?? emurate) ?? parseScore(score,operandEmurate[1] ?? emurate)))
+					break;
+				case "/":
+				case "/=":
+				case "div":
+					if(existSecound){
+						scoreboard.getObjective(score).setScore(emurate,parseScore(operand[0],operandEmurate[0] ?? emurate) / parseScore(operand[1],operandEmurate[1] ?? emurate))
+					}else{
+						scoreboard.getObjective(score).setScore(emurate,parseScore(score,emurate) / parseScore(operand[0],operandEmurate[0] ?? emurate))
+					}
+					break;
+				case "^":
+				case "**":
+				case "pow":
+					if(existSecound){
+						scoreboard.getObjective(score).setScore(emurate,parseScore(operand[0],operandEmurate[0] ?? emurate) == parseScore(operand[1],operandEmurate[1] ?? emurate))
+					}else{
+						scoreboard.getObjective(score).setScore(emurate,parseScore(score,emurate) ** parseScore(operand[0],operandEmurate[0] ?? emurate))
+					}
+					break;
+				case "=":
+				case "==":
+				case "eq":
+					if(existSecound){
+						scoreboard.getObjective(score).setScore(emurate,parseScore(operand[0],operandEmurate[0] ?? emurate) / parseScore(operand[1],operandEmurate[1] ?? emurate))
+					}else{
+						scoreboard.getObjective(score).setScore(parseScore(operand[0],operandEmurate[0] ?? emurate))
+					}
 					break;
 			
 				default:
@@ -63,6 +105,9 @@ function parseScore(arg,emurate) {
 	}
 	if (typeof arg == "string") {
 		mc.world.scoreboard.getObjective(arg).getScore(emurate)
+	}
+	if (typeof arg == "undefined") {
+		return undefined
 	}
 }
 
