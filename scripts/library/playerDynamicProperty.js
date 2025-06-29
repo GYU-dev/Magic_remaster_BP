@@ -44,9 +44,6 @@ export class worldDynamicProperty {
 }
 
 export class playerDynamicProperty extends worldDynamicProperty{
-	lastValue
-	id
-	type
 	playerId
 
 	/**@param {string} playerId @param {string} propertyIdentifier  */
