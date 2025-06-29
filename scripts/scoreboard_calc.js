@@ -14,7 +14,7 @@ mc.system.afterEvents.scriptEventReceive.subscribe((ev)=>{
 		/*
 		 スコア計算
 		 id: calc:score
-		 message: {"emurate":$emurate,"score":$score,"operator":$operator,"operand":[$first,$secound?],"operandEmurate?":[$first,$secound?]}
+		 message: {"emurate":$emurate,"score":$score,"operator":$operator,"operand":[$first,$secound?],"operandEmurate?":[$first_emurate,$secound_emurate?]}
 		 $emurate: フェイクプレイヤー名
 		 $score: スコアボードID
 		 $operator: 演算子
@@ -31,6 +31,8 @@ mc.system.afterEvents.scriptEventReceive.subscribe((ev)=>{
 		  =(系列)は$secoundを省略するかどうかで処理が変わる
 		   省略時: $scoreに$firstを代入
 		   非省略時: $firstと$secoundが等価なら1,そうでなければ0を$scoreに代入
+		 $first_emurate: 第一オペランドのスコアボードの対象にするフェイクプレイヤー名 省略時$emurateを参照
+		 $secound_emurate: 第一オペランドのスコアボードの対象にするフェイクプレイヤー名 省略時$emurateを参照
 		 */
 		case "score":{
 			const messageObject = JSON.parse(message)
