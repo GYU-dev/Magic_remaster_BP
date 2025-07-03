@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_brewing_mix": {
+    "description": {
+      "identifier": "magic_remaster:mana_potion_i_brew"
+    },
+
+    "tags": [ "brewing_stand" ],
+
+    "input": "minecraft:potion_type:awkward",
+    "reagent": "magic_remaster:magic_powder",
+    "output": "magic_remaster:mana_potion_i"
+ 
+  }
+}
+  
