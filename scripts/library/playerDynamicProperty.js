@@ -8,12 +8,12 @@ export class worldDynamicProperty {
 	/**@param {string} propertyIdentifier @returns {worldDynamicProperty}*/
 	constructor(propertyIdentifier){
 		this.id = propertyIdentifier
-		this.lastValue = mc.world.getDynamicProperty(id)
+		this.lastValue = mc.world.getDynamicProperty(this.id)
 		this.type = typeof this.lastValue
 	}
 
 	get(){
-		this.lastValue = mc.world.getDynamicProperty(id)
+		this.lastValue = mc.world.getDynamicProperty(this.id)
 		this.type = typeof this.lastValue
 		return this.lastValue
 	}
