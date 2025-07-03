@@ -34,7 +34,7 @@
           "allows_wire_to_step_down": true,
           "redstone_conductor": true
         },
-        "magic_remaster:raw_magic_crystal":{}
+        "magic_remaster:raw_magic_crystal_unstable":{}
       }
     }
   }

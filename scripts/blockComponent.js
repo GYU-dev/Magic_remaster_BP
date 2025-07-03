@@ -1,5 +1,6 @@
 import * as mc from "@minecraft/server"
 import * as kalme from "./common"
+import {Vector3} from "./library/Vector"
 
 /**
  * ターゲットブロックの周囲を参照しランダムにブロックを変化させる
@@ -52,6 +53,55 @@ mc.system.beforeEvents.startup.subscribe((ev)=>{
 		onRandomTick: raw_magic_crystal_RandomTickTransform
 	}),
 	ev.blockComponentRegistry.registerCustomComponent("magic_remaster:raw_magic_crystal_unstable",{
-
+		onRandomTick: (none,a)=>{}
 	})
+
+	ev.blockComponentRegistry.registerCustomComponent("magic_remaster:magical_crafting_table_component",{
+		onPlayerInteract: (ev,params)=>{
+			const block = ev.block
+			const player = ev.player
+			if (player === undefined) {
+				return
+			}
+			const itemStack = player.getComponent(mc.EntityComponentTypes.Equippable).getEquipment(mc.EquipmentSlot.Mainhand)
+			if (itemStack !== undefined) switch (itemStack.type.id) {
+				case "magic_remaster:magic_powder":
+					block.setPermutation(block.permutation.withState("magic_remaster:crafting_table_type","powder"))
+					kalme.consumeMainItem(player,1,true)
+					break;
+			
+				default:
+					break;
+			}
+			return
+		}
+	})
+})
+
+mc.world.beforeEvents.playerInteractWithBlock.subscribe((ev)=>{
+	switch (ev.block.type.id){
+		case "magic_remaster:magical_crafting_table":{
+			if ((ev.block.permutation.getState("magic_remaster:crafting_table_type") != "none" && ev.player.isSneaking)) {
+				const itemStack = ev.player.getComponent(mc.EntityComponentTypes.Equippable).getEquipment(mc.EquipmentSlot.Mainhand)
+				const block = ev.block
+				if (itemStack === undefined) {
+					switch (block.permutation.getState("magic_remaster:crafting_table_type")) {
+						case "none":
+							break;
+						case "powder":
+							mc.system.run(()=>{
+								block.setPermutation(block.permutation.withState("magic_remaster:crafting_table_type","none"))
+								block.dimension.spawnItem(new mc.ItemStack("magic_remaster:magic_powder"),new Vector3(block.location).getAdd(0.5,0.7,0.5))
+								block.dimension.playSound("random.pop",new Vector3(block.location).getAdd(0.5,1,0.5))
+							})
+							break;
+				
+						default:
+							break;
+					}
+					ev.cancel = true
+				}
+			}
+		}
+	}
 })
