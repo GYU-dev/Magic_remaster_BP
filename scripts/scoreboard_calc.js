@@ -14,7 +14,7 @@ mc.system.afterEvents.scriptEventReceive.subscribe((ev)=>{
 		/*
 		 スコア計算
 		 id: calc:score
-		 message: {"emurate":$emurate,"score":$score,"operator":$operator,"operand":[$first,$secound?],"operandEmurate?":[$first_emurate,$secound_emurate?]}
+		 message: {"emurate":$emurate,"score":$score,"operator":$operator,"operand":[$first,$second?],"operandEmurate?":[$first_emurate,$second_emurate?]}
 		 $emurate: フェイクプレイヤー名
 		 $score: スコアボードID
 		 $operator: 演算子
@@ -25,14 +25,14 @@ mc.system.afterEvents.scriptEventReceive.subscribe((ev)=>{
 		  "^" "**" "pow" : べき乗算
 		  "=" "==" "eq" : 代入(等値代入)/等価確認
 		 $first: 第一オペランド 数値あるいはスコアボードID
-		 $secound: 第二オペランド 数値あるいはスコアボードID
-		  +,*(系列)では$secoundを省略可能(省略時$scoreが入る)
-		  -,/,^(系列)では$secound省略時、$firstが$secoundにあるものとして$firstに$scoreが入る
-		  =(系列)は$secoundを省略するかどうかで処理が変わる
+		 $second: 第二オペランド 数値あるいはスコアボードID
+		  +,*(系列)では$secondを省略可能(省略時$scoreが入る)
+		  -,/,^(系列)では$second省略時、$firstが$secondにあるものとして$firstに$scoreが入る
+		  =(系列)は$secondを省略するかどうかで処理が変わる
 		   省略時: $scoreに$firstを代入
-		   非省略時: $firstと$secoundが等価なら1,そうでなければ0を$scoreに代入
+		   非省略時: $firstと$secondが等価なら1,そうでなければ0を$scoreに代入
 		 $first_emurate: 第一オペランドのスコアボードの対象にするフェイクプレイヤー名 省略時$emurateを参照
-		 $secound_emurate: 第一オペランドのスコアボードの対象にするフェイクプレイヤー名 省略時$emurateを参照
+		 $second_emurate: 第一オペランドのスコアボードの対象にするフェイクプレイヤー名 省略時$emurateを参照
 		 */
 		case "score":{
 			const messageObject = JSON.parse(message)
