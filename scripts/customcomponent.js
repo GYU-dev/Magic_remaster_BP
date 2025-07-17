@@ -23,6 +23,8 @@ mc.system.beforeEvents.startup.subscribe((ev)=>{
 
 				sourcePlayer.playSound("block.enchanting_table.use")
 
+				log({item:itemStack.type.id},sourcePlayer,"magicUse")
+
 				mc.system.runTimeout(()=>{
 					sourcePlayer.removeTag(`used_magic_book_${bookId}`)
 					if(magicName !== undefined)sourcePlayer.removeTag(`used_magic_name_${magicName}`);
@@ -47,6 +49,8 @@ mc.system.beforeEvents.startup.subscribe((ev)=>{
 				sourcePlayer.startItemCooldown("magic_remaster:magic_wand",200)
 
 				sourcePlayer.playSound("block.enchanting_table.use")
+
+				log({item:itemStack.type.id},sourcePlayer,"magicUse")
 
 				mc.system.runTimeout(()=>{
 					sourcePlayer.removeTag(`used_magic_wand_${wandId}`)
