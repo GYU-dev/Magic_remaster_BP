@@ -1,0 +1,508 @@
+■■■初期設定■■■
+/scoreboard objectives add mana dummy 魔力
+/scoreboard objectives add wizard_rank dummy 魔術師ランク
+/scoreboard objectives add show_wizard_rank dummy 魔術師ランク
+/scoreboard objectives add exp dummy 経験値
+/scoreboard objectives add magic_system dummy 魔法システム
+/scoreboard objectives add mana_max dummy 最大魔力
+/scoreboard objectives add mana_rec dummy 魔力回復量
+/scoreboard objectives add exp_next dummy 最大経験値
+/scoreboard objectives setdisplay list show_wizard_rank
+/gamerule commandblockoutput false
+
+
+
+
+
+■■■中枢■■■
+
+■魔法システムタイマー■
+/scoreboard players add TIMER10SEC magic_system 1
+/execute if score TIMER10SEC magic_system matches 201.. run scoreboard players set TIMER10SEC magic_system 1
+
+■スコア表示■
+/execute as @a[scores={mana=0..}] if score TIMER10SEC magic_system matches 1..100 run titleraw @s actionbar {"rawtext":[{"text":"魔力:"},{"score":{"name":"@s","objective":"mana"}},{"text":"/"},{"score":{"name":"@s","objective":"mana_max"}},{"text":"(+"},{"score":{"name":"@s","objective":"mana_rec"}},{"text":"/10sec.)"}]}
+/execute as @a[scores={mana=0..}] if score TIMER10SEC magic_system matches 101..200 run titleraw @s actionbar {"rawtext":[{"text":"経験値:"},{"score":{"name":"@s","objective":"exp"}},{"text":"/"},{"score":{"name":"@s","objective":"exp_next"}}]}
+/scoreboard players reset * show_wizard_rank
+/execute as @a run scoreboard players operation @s show_wizard_rank = @s wizard_rank
+/execute as @a unless entity @s[scores={exp=0..}] run scoreboard players set @s exp 0
+/execute as @a unless entity @s[scores={wizard_rank=0..}] run scoreboard players set @s wizard_rank 0
+
+■魔法実行■
+/function magic_run
+/function magic_player
+/function magic_circle
+/function magic_bullet
+
+
+
+
+
+##　[ /function magic_run ] + [ /function magic_player ] + [ /function magic_circle ] + [ /function magic_bullet ]
+##		├→　magic_run.mcfunction[ /execute as @a[ ... tag=used_magic_name_foo] run function magic_run_foo ] 
+##		│	└→ magic_foo.mcfunction[ /execute ... run summon ... circle_foo ] + [ /tag @s add used_magic_player_foo ]
+##		├→　magic_player.mcfunction[ /execute as @a[ ... tag=used_magic_player_foo] ... run function magic_player_foo ]
+##		│	└→ magic_player_foo.mcfunction
+##		├→　magic_circle.mcfunction[ /execute as @e[ ... name=magic_circle_foo ] ... run function magic_circle_foo ]
+##		│	└→ magic_circle_foo.mcfunction[ /execute ... run summon ... magic_bullet_foo ]
+##		└→　magic_bullet.mcfunction[ /execute as @e[ ... name=magic_bullet_foo ] ... run function magic_bullet_foo ]
+##			└→ magic_bullet_foo.mcfunction 
+
+■■■魔法実行■■■
+
+	magic_run.mcfunction
+
+execute as @a[tag=used_magic_name_ノア,tag=used_magic_book_basic,scores={mana=5..}] at @s run function magic_run_noa
+execute as @a[tag=used_magic_name_メラ,tag=used_magic_book_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_mela
+execute as @a[tag=used_magic_name_ブリザド,tag=used_magic_book_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_bulizado
+execute as @a[tag=used_magic_name_ウィド,tag=used_magic_book_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_wido
+execute as @a[tag=used_magic_name_じしん,tag=used_magic_book_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_jisin
+execute as @a[tag=used_magic_name_ボルト,tag=used_magic_book_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_boluto
+execute as @a[tag=used_magic_name_アクラ,tag=used_magic_book_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_akula
+execute as @a[tag=used_magic_name_ヒール,tag=used_magic_book_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_heal
+execute as @a[tag=used_magic_name_シャマク,tag=used_magic_book_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_shamaku
+execute as @a[tag=used_magic_name_グラヴィ,tag=used_magic_book_basic,scores={mana=25..,wizard_rank=5..}] at @s run function magic_run_guravi
+execute as @a[tag=used_magic_name_レゾ,tag=used_magic_book_basic,scores={mana=25..,wizard_rank=5..}] at @s run function magic_run_rezo
+execute as @a[tag=used_magic_name_ルーラ,tag=used_magic_book_basic,scores={mana=25..,wizard_rank=5..}] at @s run function magic_run_lula
+
+execute as @a[tag=used_magic_name_ノア,tag=used_magic_wand_basic,scores={mana=5..}] at @s run function magic_run_noa
+execute as @a[tag=used_magic_name_メラ,tag=used_magic_wand_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_mela
+execute as @a[tag=used_magic_name_ブリザド,tag=used_magic_wand_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_bulizado
+execute as @a[tag=used_magic_name_ウィド,tag=used_magic_wand_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_wido
+execute as @a[tag=used_magic_name_じしん,tag=used_magic_wand_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_jisin
+execute as @a[tag=used_magic_name_ボルト,tag=used_magic_wand_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_boluto
+execute as @a[tag=used_magic_name_アクラ,tag=used_magic_wand_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_akula
+execute as @a[tag=used_magic_name_ヒール,tag=used_magic_wand_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_heal
+execute as @a[tag=used_magic_name_シャマク,tag=used_magic_wand_basic,scores={mana=5..,wizard_rank=2..}] at @s run function magic_run_shamaku
+execute as @a[tag=used_magic_name_グラヴィ,tag=used_magic_wand_basic,scores={mana=25..,wizard_rank=5..}] at @s run function magic_run_guravi
+execute as @a[tag=used_magic_name_レゾ,tag=used_magic_wand_basic,scores={mana=25..,wizard_rank=5..}] at @s run function magic_run_rezo
+execute as @a[tag=used_magic_name_ルーラ,tag=used_magic_wand_basic,scores={mana=25..,wizard_rank=5..}] at @s run function magic_run_lula
+
+	magic_run_noa.mcfunction
+
+execute anchored eyes unless entity @e[r=3,type=magic_remaster:magic_circle_verticle_small,name=magic_circle_noa] run summon magic_remaster:magic_circle_verticle_small ^ ^ ^1 ~ ~ minecraft:entity_spawned magic_circle_noa
+execute anchored eyes positioned ^ ^ ^1 run tag @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_noa,r=3,tag=activated] remove activated
+execute anchored eyes positioned ^ ^ ^1 run scoreboard players set @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_noa,r=3,tag=!activated] magic_system 50
+scoreboard players set @s magic_system 50
+execute anchored eyes positioned ^ ^ ^1 run tag @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_noa,r=3,tag=!activated] add activated
+tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> 無より出でて、無へ還れ。 -§f§lノア§r。"}]}
+tag @s add used_magic_player_noa
+scoreboard players remove @s mana 5
+scoreboard players add @s exp 5
+
+	magic_run_mela.mcfunction
+
+execute anchored eyes unless entity @e[r=3,type=magic_remaster:magic_circle_verticle_small,name=magic_circle_mela] run summon magic_remaster:magic_circle_verticle_small ^ ^ ^1 ~ ~ minecraft:entity_spawned magic_circle_mela
+execute anchored eyes positioned ^ ^ ^1 run tag @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_mela,r=3,tag=activated] remove activated
+execute anchored eyes positioned ^ ^ ^1 run scoreboard players set @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_mela,r=3,tag=!activated] magic_system 50
+scoreboard players set @s magic_system 50
+execute anchored eyes positioned ^ ^ ^1 run tag @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_mela,r=3,tag=!activated] add activated
+tellraw @a[r=10] {"rawtext":[{"selector":"@s"},{"text":"は §c§lメラ§rを となえた！"}]}
+tag @s add used_magic_player_mela
+scoreboard players remove @s mana 5
+scoreboard players add @s exp 5
+
+	magic_run_bulizado.mcfunction
+
+execute anchored eyes unless entity @e[r=3,type=magic_remaster:magic_circle_verticle_small,name=magic_circle_bulizado] run summon magic_remaster:magic_circle_verticle_small ^ ^ ^1 ~ ~ minecraft:entity_spawned magic_circle_bulizado
+execute anchored eyes positioned ^ ^ ^1 run tag @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_bulizado,r=3,tag=activated] remove activated
+execute anchored eyes positioned ^ ^ ^1 run scoreboard players set @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_bulizado,r=3,tag=!activated] magic_system 50
+scoreboard players set @s magic_system 50
+execute anchored eyes positioned ^ ^ ^1 run tag @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_bulizado,r=3,tag=!activated] add activated
+tellraw @a[r=10] {"rawtext":[{"selector":"@s"},{"text":":§b§lブリザド§r"}]}
+tag @s add used_magic_player_bulizado
+scoreboard players remove @s mana 5
+scoreboard players add @s exp 5
+
+	magic_run_wido.mcfunction
+
+execute unless entity @e[r=3,type=magic_remaster:magic_circle_small,name=magic_circle_wido] run summon magic_remaster:magic_circle_small ~ ~ ~ ~ ~ minecraft:entity_spawned magic_circle_wido
+execute anchored eyes positioned ~ ~-1 ~ run tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_wido,r=3,tag=activated] remove activated
+execute anchored eyes positioned ~ ~-1 ~ run scoreboard players set @e[type=magic_remaster:magic_circle_small,name=magic_circle_wido,r=3,tag=!activated] magic_system 15
+scoreboard players set @s magic_system 15
+execute anchored eyes positioned ~ ~-1 ~ run tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_wido,r=3,tag=!activated] add activated
+tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> 風よ、駆けろ。 -§a§lウィド§r。"}]}
+tag @s add used_magic_player_wido
+scoreboard players remove @s mana 5
+scoreboard players add @s exp 5
+
+	magic_run_jisin.mcfunction
+
+execute unless entity @e[r=3,type=magic_remaster:magic_circle_small,name=magic_circle_jisin] run summon magic_remaster:magic_circle_small ^ ^ ^1 ~ ~ minecraft:entity_spawned magic_circle_jisin
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_jisin,r=3,tag=activated] remove activated
+scoreboard players set @e[type=magic_remaster:magic_circle_small,name=magic_circle_jisin,r=3,tag=!activated] magic_system 90
+scoreboard players set @s magic_system 90
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_jisin,r=3,tag=!activated] add activated
+tellraw @a[r=15] {"rawtext":[{"selector":"@s"},{"text":"の §n§lじしん §r攻撃！"}]}
+tag @s add used_magic_player_jisin
+scoreboard players remove @s mana 5
+scoreboard players add @s exp 5
+
+	magic_run_boluto.mcfunction
+
+execute unless entity @e[r=3,type=magic_remaster:magic_circle_small,name=magic_circle_boluto] run summon magic_remaster:magic_circle_small ^ ^ ^1 ~ ~ minecraft:entity_spawned magic_circle_boluto
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_boluto,r=3,tag=activated] remove activated
+scoreboard players set @e[type=magic_remaster:magic_circle_small,name=magic_circle_boluto,r=3,tag=!activated] magic_system 50
+scoreboard players set @s magic_system 50
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_boluto,r=3,tag=!activated] add activated
+tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> 今、閃光となれ。 -§d§lボルト§r。"}]}
+tag @s add used_magic_player_boluto
+scoreboard players remove @s mana 5
+scoreboard players add @s exp 5
+
+	magic_run_akula.mcfunction
+
+execute anchored eyes unless entity @e[r=3,type=magic_remaster:magic_circle_verticle_small,name=magic_circle_akula] run summon magic_remaster:magic_circle_verticle_small ^ ^ ^1 ~ ~ minecraft:entity_spawned magic_circle_akula
+execute anchored eyes positioned ^ ^ ^1 run tag @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_akula,r=3,tag=activated] remove activated
+execute anchored eyes positioned ^ ^ ^1 run scoreboard players set @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_akula,r=3,tag=!activated] magic_system 90
+scoreboard players set @s magic_system 90
+execute anchored eyes positioned ^ ^ ^1 run tag @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_akula,r=3,tag=!activated] add activated
+tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> ぶち抜け、水の弾圧。 -§1§lアクラ§r。"}]}
+tag @s add used_magic_player_akula
+scoreboard players remove @s mana 5
+scoreboard players add @s exp 5
+
+	magic_run_heal.mcfunction
+
+execute unless entity @e[r=3,type=magic_remaster:magic_circle_small,name=magic_circle_heal] run summon magic_remaster:magic_circle_small ~ ~ ~ ~ ~ minecraft:entity_spawned magic_circle_heal
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_heal,r=3,tag=activated] remove activated
+scoreboard players set @e[type=magic_remaster:magic_circle_small,name=magic_circle_heal,r=3,tag=!activated] magic_system 50
+scoreboard players set @s magic_system 50
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_heal,r=3,tag=!activated] add activated
+tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> 癒せ。 -§e§lヒール§r。"}]}
+tag @s add used_magic_player_heal
+scoreboard players remove @s mana 5
+scoreboard players add @s exp 5
+
+	magic_run_shamaku.mcfunction
+
+execute unless entity @e[r=3,type=magic_remaster:magic_circle_small,name=magic_circle_shamaku] run summon magic_remaster:magic_circle_small ~ ~ ~ ~ ~ minecraft:entity_spawned magic_circle_shamaku
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_shamaku,r=3,tag=activated] remove activated
+scoreboard players set @e[type=magic_remaster:magic_circle_small,name=magic_circle_shamaku,r=3,tag=!activated] magic_system 50
+scoreboard players set @s magic_system 50
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_shamaku,r=3,tag=!activated] add activated
+tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> §5§lシャマク§rｯ！！"}]}
+tag @s add used_magic_player_shamaku
+scoreboard players remove @s mana 5
+scoreboard players add @s exp 5
+
+	magic_run_guravi.mcfunction
+
+execute unless entity @e[r=3,type=magic_remaster:magic_circle_small,name=magic_circle_guravi] run summon magic_remaster:magic_circle_small ^ ^ ^1 ~ ~ minecraft:entity_spawned magic_circle_guravi
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_guravi,r=3,tag=activated] remove activated
+scoreboard players set @e[type=magic_remaster:magic_circle_small,name=magic_circle_guravi,r=3,tag=!activated] magic_system 200
+scoreboard players set @s magic_system 200
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_guravi,r=3,tag=!activated] add activated
+tellraw @a[r=30] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> 重力よ、圧せ。 -§8§lグラヴィ§r。"}]}
+tag @s add used_magic_player_guravi
+scoreboard players remove @s mana 25
+scoreboard players add @s exp 5
+
+	magic_run_rezo.mcfunction
+
+execute anchored eyes unless entity @e[r=3,type=magic_remaster:magic_circle_verticle_small,name=magic_circle_rezo] run summon magic_remaster:magic_circle_verticle_small ^ ^ ^1 ~ ~ minecraft:entity_spawned magic_circle_rezo
+execute anchored eyes positioned ^ ^ ^1 run tag @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_rezo,r=3,tag=activated] remove activated
+execute anchored eyes positioned ^ ^ ^1 run scoreboard players set @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_rezo,r=3,tag=!activated] magic_system 200
+scoreboard players set @s magic_system 200
+execute anchored eyes positioned ^ ^ ^1 run tag @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_rezo,r=3,tag=!activated] add activated
+tag @s add used_magic_player_rezo
+scoreboard players remove @s mana 25
+scoreboard players add @s exp 5
+
+	magic_run_lula.mcfunction
+
+execute unless entity @e[r=3,type=magic_remaster:magic_circle_small,name=magic_circle_lula] run summon magic_remaster:magic_circle_small ~ ~ ~ ~ ~ minecraft:entity_spawned magic_circle_lula
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_lula,r=3,tag=activated] remove activated
+scoreboard players set @e[type=magic_remaster:magic_circle_small,name=magic_circle_lula,r=3,tag=!activated] magic_system 100
+scoreboard players set @s magic_system 100
+tag @e[type=magic_remaster:magic_circle_small,name=magic_circle_lula,r=3,tag=!activated] add activated
+tellraw @a[r=10] {"rawtext":[{"selector":"@s"},{"text":"は §7§lルーラ§rを となえた！"}]}
+tag @s add used_magic_player_lula
+scoreboard players remove @s mana 25
+scoreboard players add @s exp 5
+
+■■■魔法陣実行■■■
+
+	magic_circle.mcfunction
+
+execute as @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_noa] at @s run function magic_circle_noa
+execute as @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_mela] at @s run function magic_circle_mela
+execute as @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_bulizado] at @s run function magic_circle_bulizado
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_wido] at @s run function magic_circle_wido
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_jisin] at @s run function magic_circle_jisin
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_boluto] at @s run function magic_circle_boluto
+execute as @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_akula] at @s run function magic_circle_akula
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_heal] at @s run function magic_circle_heal
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_shamaku] at @s run function magic_circle_shamaku
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_guravi] at @s run function magic_circle_guravi
+execute as @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_rezo] at @s run function magic_circle_rezo
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_lula] at @s run function magic_circle_lula
+
+	magic_circle_noa.mcfunction
+
+execute if score @s magic_system matches 26..30 run summon magic_remaster:magic_dummy ~ ~0.5 ~ ~ ~ minecraft:entity_spawned magic_bullet_noa
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_noa] magic_system at @p[r=3,tag=used_magic_player_noa] run tp @s ^ ^1 ^1 ~ ~
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_noa] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_noa] remove used_magic_player_noa
+tag @s[scores={magic_system=0}] add "!!remove"
+
+	magic_circle_mela.mcfunction
+
+execute if score @s magic_system matches 30 run summon magic_remaster:magic_dummy ~ ~0.5 ~ ~ ~ minecraft:entity_spawned magic_bullet_mela
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_mela] magic_system at @p[r=3,tag=used_magic_player_mela] run tp @s ^ ^1 ^1 ~ ~
+execute if score @s magic_system matches 50 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.707107 0.0
+execute if score @s magic_system matches 48 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.840896 0.0
+execute if score @s magic_system matches 46 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.749154 0.0
+execute if score @s magic_system matches 44 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.890899 0.0
+execute if score @s magic_system matches 42 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.793701 0.0
+execute if score @s magic_system matches 40 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.943874 0.0
+execute if score @s magic_system matches 38 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 1.0 0.0
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_mela] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_mela] remove used_magic_player_mela
+tag @s[scores={magic_system=0}] add "!!remove"
+
+	magic_circle_bulizado.mcfunction
+
+execute if score @s magic_system matches 50 run summon magic_remaster:magic_dummy ~ ~0.5 ~ ~ ~ minecraft:entity_spawned magic_bullet_bulizado
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_bulizado] magic_system at @p[r=3,tag=used_magic_player_bulizado] run tp @s ^ ^1 ^1 ~ ~
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_bulizado] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_bulizado] remove used_magic_player_bulizado
+tag @s[scores={magic_system=0}] add "!!remove"
+scoreboard players operation @e[type=magic_remaster:magic_dummy,name=magic_bullet_bulizado,r=0.5,scores={magic_system=!0..}] magic_system = @s magic_system
+
+	magic_circle_wido.mcfunction
+
+execute if score @s magic_system matches 8..10 run summon wind_charge_projectile ~ ~1 ~ ~ ~
+execute if score @s magic_system matches 8..10 run tag @e[type=wind_charge_projectile,r=2] add magic_bullet_wido
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_wido] magic_system at @p[r=2,tag=used_magic_player_wido] run tp @s ~ ~ ~ ~ ~
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_wido] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_wido] remove used_magic_player_wido
+tag @s[scores={magic_system=0}] add "!!remove"
+scoreboard players operation @e[type=wind_charge_projectile,tag=magic_bullet_wido,r=2] magic_system = @s magic_system
+
+	magic_circle_jisin.mcfunction
+
+execute if score @s magic_system matches 90 run camerashake add @a[r=15] 0.5 3
+execute if score @s magic_system matches 90 run playsound mob.warden.sonic_boom @a[r=32] ~ ~ ~ 1.0 0.5
+execute if score @s magic_system matches 30..90 as @a[r=10,tag=!used_magic_player_jisin] at @s unless block ~ ~-0.5 ~ air run damage @s 1 fall
+execute if score @s magic_system matches 30..90 as @e[family=mob,type=!armor_stand,r=10] at @s unless block ~ ~-0.5 ~ air run damage @s 1 fall
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_jisin] magic_system at @p[r=3,tag=used_magic_player_jisin] run tp @s ~ ~ ~ ~ ~
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_jisin] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_jisin] remove used_magic_player_jisin
+tag @s[scores={magic_system=0}] add "!!remove"
+
+	magic_circle_boluto.mcfunction
+
+execute if score @s magic_system matches 30 as @p[r=3,tag=used_magic_player_boluto] run effect @s speed 1 10 true
+execute if score @s magic_system matches 30 as @p[r=3,tag=used_magic_player_boluto] run effect @s jump_boost 1 10 true
+execute if score @s magic_system matches 30 run playsound item.trident.thunder @a[r=32] ~ ~ ~ 1.0 2.5
+execute if score @s magic_system matches 10..30 if score @s magic_system = @p[r=3,tag=used_magic_player_boluto] magic_system at @p[r=3,tag=used_magic_player_boluto] run particle minecraft:electric_spark_particle ~ ~0.5 ~
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_boluto] magic_system at @p[r=3,tag=used_magic_player_boluto] run tp @s ~ ~ ~ ~ ~
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_boluto] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_boluto] remove used_magic_player_boluto
+tag @s[scores={magic_system=0}] add "!!remove"
+
+	magic_circle_akula.mcfunction
+
+execute if score @s magic_system matches 60 run summon magic_remaster:magic_dummy ~ ~0.5 ~ ~ ~ minecraft:entity_spawned magic_bullet_akula
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_akula] magic_system at @p[r=3,tag=used_magic_player_akula] run tp @s ^ ^1 ^1 ~ ~
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_akula] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_akula] remove used_magic_player_akula
+tag @s[scores={magic_system=0}] add "!!remove"
+scoreboard players operation @e[type=magic_remaster:magic_dummy,name=magic_bullet_akula,r=1] magic_system = @s magic_system
+
+	magic_circle_heal.mcfunction
+
+execute if score @s magic_system matches 30 as @p[r=3,tag=used_magic_player_heal] run effect @s instant_health 1 0 true
+execute if score @s magic_system matches 30 run playsound item.trident.thunder @a[r=32] ~ ~ ~ 1.0 2.5
+execute if score @s magic_system matches 30 run particle minecraft:heart_particle ~ ~ ~
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_heal] magic_system at @p[r=3,tag=used_magic_player_heal] run tp @s ~ ~ ~ ~ ~
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_heal] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_heal] remove used_magic_player_heal
+tag @s[scores={magic_system=0}] add "!!remove"
+
+	magic_circle_shamaku.mcfunction
+
+execute if score @s magic_system matches 25..30 as @p[r=3,tag=used_magic_player_shamaku] run particle minecraft:smash_ground_particle ~ ~ ~
+execute if score @s magic_system matches 25..30 as @p[r=3,tag=used_magic_player_shamaku] run particle minecraft:smash_ground_particle_center ~ ~ ~
+execute if score @s magic_system matches 25..30 run effect @a[r=10] blindness 5 0 true
+execute if score @s magic_system matches 25..30 as @p[r=3,tag=used_magic_player_shamaku] run particle minecraft:huge_explosion_emitter ~ ~ ~
+execute if score @s magic_system matches 30 run playsound random.totem @a[r=32] ~ ~ ~ 1.0 0.5
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_shamaku] magic_system at @p[r=3,tag=used_magic_player_shamaku] run tp @s ~ ~ ~ ~ ~
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_shamaku] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_shamaku] remove used_magic_player_shamaku
+tag @s[scores={magic_system=0}] add "!!remove"
+
+	magic_circle_guravi.mcfunction
+
+execute if score @s magic_system matches 20..180 run effect @a[r=10,tag=!used_magic_player_guravi] slowness 1 10 true
+execute if score @s magic_system matches 20..180 as @a[r=10,tag=!used_magic_player_guravi] at @s if block ~ ~-0.5 ~ air run tp @s ~ ~-0.5 ~
+execute if score @s magic_system matches 20..180 run effect @e[family=mob,type=!armor_stand,r=10] slowness 1 10 true
+execute if score @s magic_system matches 20..180 as @e[family=mob,type=!armor_stand,r=10] at @s if block ~ ~-0.5 ~ air run tp @s ~ ~-0.5 ~
+execute if score @s magic_system matches 180 run playsound mob.warden.sonic_boom @a[r=32] ~ ~ ~ 1.0 0.5
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_guravi] magic_system at @p[r=3,tag=used_magic_player_guravi] run tp @s ~ ~ ~
+tp @s ~ ~ ~ ~5 ~
+execute if score @s magic_system matches 20.. run particle minecraft:endrod ^ ^1 ^10
+execute if score @s magic_system matches 20.. run particle minecraft:endrod ^ ^1 ^-10
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_guravi] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_guravi] remove used_magic_player_guravi
+tag @s[scores={magic_system=0}] add "!!remove"
+
+	magic_circle_rezo.mcfunction
+
+execute if score @s magic_system matches 200 if score @s magic_system = @p[r=3,tag=used_magic_player_rezo] magic_system as @p[r=3,tag=used_magic_player_rezo] at @s run playsound mob.warden.sonic_charge @a[r=10] ~ ~ ~ 1.0 0.2
+execute if score @s magic_system matches 40..200 if score @s magic_system = @p[r=3,tag=used_magic_player_rezo] magic_system as @p[r=3,tag=used_magic_player_rezo] run effect @s slowness 1 0 true
+execute if score @s magic_system matches 200 if score @s magic_system = @p[r=3,tag=used_magic_player_rezo] magic_system as @p[r=3,tag=used_magic_player_rezo] run tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> 静寂はやがて空気に共鳴し、"}]}
+execute if score @s magic_system matches 150 if score @s magic_system = @p[r=3,tag=used_magic_player_rezo] magic_system as @p[r=3,tag=used_magic_player_rezo] run tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> 集いし波はやがて空気を切り裂く。"}]}
+execute if score @s magic_system matches 100 if score @s magic_system = @p[r=3,tag=used_magic_player_rezo] magic_system as @p[r=3,tag=used_magic_player_rezo] run tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> 音は力、力は衝撃、衝撃は破壊。"}]}
+execute if score @s magic_system matches 50 if score @s magic_system = @p[r=3,tag=used_magic_player_rezo] magic_system as @p[r=3,tag=used_magic_player_rezo] run tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":"> 今こそ、轟け。"}]}
+execute if score @s magic_system matches 20 if score @s magic_system = @p[r=3,tag=used_magic_player_rezo] magic_system as @p[r=3,tag=used_magic_player_rezo] run tellraw @a[r=10] {"rawtext":[{"text":"<"},{"selector":"@s"},{"text":">  -§2§lレゾ§r。"}]}
+execute if score @s magic_system matches 20 run summon magic_remaster:magic_dummy ~ ~0.5 ~ ~ ~ minecraft:entity_spawned magic_bullet_rezo
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_rezo] magic_system at @p[r=3,tag=used_magic_player_rezo] run tp @s ^ ^1 ^1 ~ ~
+scoreboard players remove @s magic_system 1
+scoreboard players remove @p[r=3,tag=used_magic_player_rezo] magic_system 1
+execute if score @s magic_system matches 0 run tag @p[r=3,tag=used_magic_player_rezo] remove used_magic_player_rezo
+tag @s[scores={magic_system=0}] add "!!remove"
+scoreboard players operation @e[type=magic_remaster:magic_dummy,name=magic_bullet_rezo,r=1] magic_system = @s magic_system
+
+	magic_circle_lula.mcfunction
+
+execute if score @s magic_system matches 100 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.707107 0.0
+execute if score @s magic_system matches 98 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.840896 0.0
+execute if score @s magic_system matches 96 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.749154 0.0
+execute if score @s magic_system matches 94 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.890899 0.0
+execute if score @s magic_system matches 92 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.793701 0.0
+execute if score @s magic_system matches 90 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 0.943874 0.0
+execute if score @s magic_system matches 88 run playsound note.bit @a[r=32] ~ ~ ~ 1.0 1.0 0.0
+execute if score @s magic_system matches 81..100 run scoreboard players remove @p[r=3,tag=used_magic_player_lula] magic_system 1
+execute if score @s magic_system matches 81..100 run scoreboard players remove @s magic_system 1
+tag @s[scores={magic_system=80}] add "!!remove"
+execute if score @s magic_system = @p[r=3,tag=used_magic_player_lula] magic_system at @p[r=3,tag=used_magic_player_lula] run tp @s ~ ~ ~ ~ ~
+execute if score @s magic_system matches 80 if score @s magic_system = @p[r=3,tag=used_magic_player_lula] magic_system as @p[r=3,tag=used_magic_player_lula] run effect @s levitation 4 255 true
+
+■■■魔法弾実行■■■
+
+	magic_bullet.mcfunction
+
+execute as @e[type=magic_remaster:magic_dummy,name=magic_bullet_noa] at @s run function magic_bullet_noa
+execute as @e[type=magic_remaster:magic_dummy,name=magic_bullet_mela] at @s run function magic_bullet_mela
+execute as @e[type=magic_remaster:magic_dummy,name=magic_bullet_bulizado] at @s run function magic_bullet_bulizado
+execute as @e[type=wind_charge_projectile,tag=magic_bullet_wido] at @s run function magic_bullet_wido
+execute as @e[type=magic_remaster:magic_dummy,name=magic_bullet_akula] at @s run function magic_bullet_akula
+execute as @e[type=magic_remaster:magic_dummy,name=magic_bullet_rezo] at @s run function magic_bullet_rezo
+execute as @a[tag=used_magic_player_lula,scores={magic_system=..80}] at @s run function magic_bullet_lula
+
+	magic_bullet_noa.mcfunction
+
+tp @s ^ ^ ^0.5 ~ ~
+particle minecraft:wind_charged_emitter ~ ~ ~
+execute positioned ~ ~-1 ~ run damage @a[r=1] 1 magic
+execute positioned ~ ~-1 ~ run damage @e[family=mob,type=!armor_stand,r=1] 1 magic
+execute unless entity @p[r=32] run tag @s add "!!remove"
+execute unless block ~ ~ ~ air run tag @s add "!!remove"
+execute positioned ~ ~-1 ~ if entity @a[r=1] run tag @s add "!!remove"
+execute positioned ~ ~-1 ~ if entity @e[family=mob,type=!armor_stand,r=1] run tag @s add "!!remove"
+playsound break.amethyst_block @a[r=32] ~ ~ ~ 1.0 1.0 0.0
+tag @s add element_none
+
+	magic_bullet_mela.mcfunction
+
+tp @s ^ ^ ^0.5 ~ ~
+particle minecraft:small_flame_particle ~ ~ ~
+execute positioned ~ ~-1 ~ run damage @a[r=1] 1 fire
+execute positioned ~ ~-1 ~ run damage @e[family=mob,type=!armor_stand,r=1] 1 fire
+execute unless block ^ ^ ^0.5 air run fill ^-1 ^-1 ^ ^1 ^1 ^-2 fire keep
+execute positioned ~ ~-1 ~ if entity @a[r=1] run fill ^-1 ^-1 ^ ^1 ^1 ^-2 fire keep
+execute positioned ~ ~-1 ~ if entity @e[family=mob,type=!armor_stand,r=1] run fill ^-1 ^-1 ^ ^1 ^1 ^-2 fire keep
+execute unless entity @p[r=32] run tag @s add "!!remove"
+execute unless block ~ ~ ~ air run tag @s add "!!remove"
+execute positioned ~ ~-1 ~ if entity @a[r=1] run tag @s add "!!remove"
+execute positioned ~ ~-1 ~ if entity @e[family=mob,type=!armor_stand,r=1] run tag @s add "!!remove"
+playsound mob.blaze.shoot @a[r=32] ~ ~ ~ 1.0 1.0 0.0
+tag @s add element_fire
+
+	magic_bullet_bulizado.mcfunction
+
+tp @s[scores={magic_system=!0..}] ^ ^ ^1 ~ ~
+effect @s invisibility infinite 255 true
+execute positioned ~ ~-1 ~ if entity @a[r=2,tag=!used_magic_player_bulizado] run scoreboard players set @s[scores={magic_system=!0..}] magic_system 50
+execute positioned ~ ~-1 ~ if entity @e[family=mob,type=!armor_stand,r=2] run scoreboard players set @s[scores={magic_system=!0..}] magic_system 50
+execute unless block ^ ^ ^0.5 air run scoreboard players set @s[scores={magic_system=!0..}] magic_system 50
+execute if entity @s[scores={magic_system=50}] at @p[r=3] run fill ~-1 ~-1 ~-1 ~1 ~2 ~1 ice keep
+execute if entity @s[scores={magic_system=50}] at @e[family=mob,type=!armor_stand,r=3] run fill ~-1 ~-1 ~-1 ~1 ~2 ~1 ice keep
+execute if entity @s[scores={magic_system=50}] unless block ^ ^ ^0.5 air run fill ~-1 ~-1 ~-1 ~1 ~1 ~1 ice keep
+execute unless entity @p[r=32] run tag @s add "!!remove"
+execute if entity @s[scores={magic_system=0}] at @p[r=3]run fill ~-2 ~-2 ~-2 ~2 ~2 ~2 air replace ice
+execute if entity @s[scores={magic_system=0}] at @e[family=mob,type=!armor_stand,r=3] run fill ~-2 ~-2 ~-2 ~2 ~2 ~2 air replace ice
+execute if entity @s[scores={magic_system=0}] unless block ^ ^ ^0.5 air run fill ~-2 ~-2 ~-2 ~2 ~2 ~2 air replace ice
+execute if entity @s[scores={magic_system=0}] run playsound random.glass @a[r=32] ~ ~ ~ 1.0 1.0 0.0
+execute if entity @s[scores={magic_system=0}] run damage @a[r=3] 1 freezing
+execute if entity @s[scores={magic_system=0}] run damage @e[family=mob,type=!armor_stand,r=3] 1 freezing
+execute if entity @s[scores={magic_system=0}] run tag @s add "!!remove"
+tag @s add element_ice
+scoreboard players remove @s magic_system 1
+
+	magic_bullet_wido.mcfunction
+
+tp @s ~ ~-0.1 ~ ~ ~
+tag @s add element_wind
+scoreboard players remove @s magic_system 1
+execute if entity @s[scores={magic_system=..0}] run tag @s add "!!remove"
+
+	magic_bullet_akula.mcfunction
+
+tp @s ^ ^ ^0.5 ~ ~
+particle minecraft:egg_destroy_emitter ~ ~ ~
+tp @a[r=2] ^ ^ ^-0.5
+tp @e[family=mob,type=!armor_stand,r=2] ^ ^ ^-0.5
+execute unless entity @p[r=32] run tag @s add "!!remove"
+execute unless block ~ ~ ~ air run tag @s add "!!remove"
+execute if score @s magic_system matches 0 run tag @s add "!!remove"
+scoreboard players remove @s magic_system 1
+playsound random.fizz @a[r=32] ~ ~ ~ 1.0 1.0 0.0
+tag @s add element_water
+
+	magic_bullet_rezo.mcfunction
+
+tp @s ^ ^ ^2 ~ ~
+particle minecraft:sonic_explosion ~ ~ ~
+damage @a[r=2,tag=!used_magic_player_rezo] 10 sonic_boom
+damage @e[family=mob,type=!armor_stand,r=2] 10 sonic_boom
+execute unless entity @p[r=32,tag=used_magic_player_rezo] run tag @s add "!!remove"
+execute if score @s magic_system matches 0 run tag @s add "!!remove"
+scoreboard players remove @s magic_system 1
+playsound mob.warden.sonic_boom @a[r=32] ~ ~ ~ 1.0 0.5
+tag @s add element_sound
+
+	magic_bullet_lula.mcfunction
+
+scoreboard players remove @s magic_system 1
+execute if score @s magic_system matches 0 if score @s magic_system = @p[tag=used_magic_player_lula,y=800,dy=500] magic_system as @p[tag=used_magic_player_lula] run effect @s resistance 15 255 true
+execute if score @s magic_system matches 0 if score @s magic_system = @p[tag=used_magic_player_lula,y=800,dy=500] magic_system as @p[tag=used_magic_player_lula] run tp 0 800 0
+execute if score @s magic_system matches 0 run tag @p[tag=used_magic_player_lula] remove used_magic_player_lula
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

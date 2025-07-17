@@ -15,6 +15,8 @@ import {} from "./mana_scoreboard/autoCalcManaMax"
 import {} from "./mana_scoreboard/manaHeal"
 import {} from "./mana_scoreboard/magicEXP"
 import {} from "./scoreboard_calc"
+// import {} from "./achievement"
+// import {} from "./library/savedataUpdater"
 import * as tagList from "./library/tagList"
 import * as kalme from "./common"
 
