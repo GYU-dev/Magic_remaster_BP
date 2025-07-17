@@ -55,7 +55,7 @@ mc.system.beforeEvents.startup.subscribe((ev)=>{
 	ev.blockComponentRegistry.registerCustomComponent("magic_remaster:raw_magic_crystal_unstable",{
 		onRandomTick: (none,a)=>{}
 	})
-
+/*
 	ev.blockComponentRegistry.registerCustomComponent("magic_remaster:magical_crafting_table_component",{
 		onPlayerInteract: (ev,params)=>{
 			const block = ev.block
@@ -75,9 +75,9 @@ mc.system.beforeEvents.startup.subscribe((ev)=>{
 			}
 			return
 		}
-	})
+	})*/
 })
-
+/*
 mc.world.beforeEvents.playerInteractWithBlock.subscribe((ev)=>{
 	switch (ev.block.type.id){
 		case "magic_remaster:magical_crafting_table":{
@@ -104,4 +104,4 @@ mc.world.beforeEvents.playerInteractWithBlock.subscribe((ev)=>{
 			}
 		}
 	}
-})
+})*/

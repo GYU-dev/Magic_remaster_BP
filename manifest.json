@@ -1,10 +1,10 @@
 {
     "format_version": 2,
     "header": {
-      "name": "Magic_remaster",
+      "name": "Magic_remaster(light)",
       "description": "Re:MASTER MAGIC",
       "version": [1, 0, 0],
-      "uuid": "4a18982f-7d26-467c-a08b-160b9a76653b",
+      "uuid": "c9baa186-5509-44eb-b395-64408f848b49",
       "min_engine_version": [1, 21, 90]
     },
     "modules": [
@@ -12,14 +12,14 @@
         "type": "data",
         "description": "add_on modules",
         "version": [1, 0, 0],
-        "uuid": "bb74bfe5-23b3-4363-8dee-c5273d2eff10"
+        "uuid": "6451ad49-9a67-4350-b5ec-735f2cee7922"
       },
       {
         "type": "script",
         "description": "Script API modules",
         "language": "javascript",
         "version": [1, 0, 0],
-        "uuid": "628246cb-c86e-4509-832d-fc3398e25919",
+        "uuid": "d4dc5929-686c-4e80-ae0e-95334a99e442",
         "entry": "scripts/main.js"
       }
     ],
