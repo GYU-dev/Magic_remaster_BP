@@ -1,9 +1,0 @@
-summon magic_remaster:magic_dummy ^ ^ ^2 ~ ~ minecraft:entity_spawned magicf53
-summon magic_remaster:magic_dummy ^ ^ ^3 ~ ~ minecraft:entity_spawned magicf53
-summon magic_remaster:magic_dummy ^ ^ ^4 ~ ~ minecraft:entity_spawned magicf53
-summon magic_remaster:magic_dummy ^ ^ ^5 ~ ~ minecraft:entity_spawned magicf53
-summon magic_remaster:magic_dummy ^ ^ ^6 ~ ~ minecraft:entity_spawned magicf53
-summon magic_remaster:magic_dummy ^ ^ ^7 ~ ~ minecraft:entity_spawned magicf53
-summon magic_remaster:magic_dummy ^ ^ ^8 ~ ~ minecraft:entity_spawned magicf53
-summon magic_remaster:magic_dummy ^ ^ ^9 ~ ~ minecraft:entity_spawned magicf53
-summon magic_remaster:magic_dummy ^ ^ ^10 ~ ~ minecraft:entity_spawned magicf53

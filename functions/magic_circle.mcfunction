@@ -1,0 +1,12 @@
+execute as @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_noa] at @s run function magic_circle_noa
+execute as @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_mela] at @s run function magic_circle_mela
+execute as @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_bulizado] at @s run function magic_circle_bulizado
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_wido] at @s run function magic_circle_wido
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_jisin] at @s run function magic_circle_jisin
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_boluto] at @s run function magic_circle_boluto
+execute as @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_akula] at @s run function magic_circle_akula
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_heal] at @s run function magic_circle_heal
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_shamaku] at @s run function magic_circle_shamaku
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_guravi] at @s run function magic_circle_guravi
+execute as @e[type=magic_remaster:magic_circle_verticle_small,name=magic_circle_rezo] at @s run function magic_circle_rezo
+execute as @e[type=magic_remaster:magic_circle_small,name=magic_circle_lula] at @s run function magic_circle_lula
