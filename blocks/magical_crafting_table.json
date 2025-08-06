@@ -60,7 +60,7 @@
           "condition": "query.block_state('magic_remaster:crafting_table_type') == 'powder'", 
           "components": {	
 			"minecraft:crafting_table":{
-				"crafting_tags": ["magic_remaster"],
+				"crafting_tags": ["magical_crafting_table"],
 				"table_name": "magic_remaster:magical_crafting_table_powder"
 			}
           }

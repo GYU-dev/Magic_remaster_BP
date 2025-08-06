@@ -8,7 +8,7 @@
     "tags": [ "brewing_stand" ],
 
     "input": "minecraft:potion_type:awkward",
-    "reagent": "magic_remaster:magic_powder",
+    "reagent": "minecraft:lapis_lazuli",
     "output": "magic_remaster:mana_potion_i"
  
   }
