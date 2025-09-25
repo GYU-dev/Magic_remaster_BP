@@ -2,7 +2,7 @@
     "format_version": "1.20.10",
     "minecraft:recipe_shaped": {
       "description": {
-      "identifier": "magic_remaster:magic_powder"
+      "identifier": "magic_remaster:magic_powder_magical"
       },
   
       
@@ -21,7 +21,7 @@
       },
       "unlock": [
         {
-            "item": "magic_remaster:amethyst_shard"
+            "item": "minecraft:amethyst_shard"
         }
       ],
       "result": {

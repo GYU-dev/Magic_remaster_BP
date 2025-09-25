@@ -2,7 +2,7 @@
   "format_version": "1.20.10",
   "minecraft:recipe_brewing_mix": {
     "description": {
-      "identifier": "magic_remaster:mana_potion_i_brew"
+      "identifier": "magic_remaster:mana_potion_ii_brew"
     },
 
     "tags": [ "brewing_stand" ],

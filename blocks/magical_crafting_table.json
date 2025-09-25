@@ -30,10 +30,6 @@
 			"*": {
 				"texture": "magical_crafting_table_none",
 				"render_method": "opaque"
-			},
-			"feet": {
-				"texture": "raw_magic_crystal",
-				"render_method": "opaque"
 			}
 		},
 		"minecraft:selection_box": {
